@@ -2,17 +2,11 @@ package com.ucl.news.main;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import main.java.org.mcsoxford.rss.RSSItem;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -29,23 +23,16 @@ import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.gc.android.market.api.Main;
 import com.ucl.news.adapters.ViewPagerAdapter;
 import com.ucl.news.api.ArticleDAO;
 import com.ucl.news.api.LoggingReadingBehavior;
-import com.ucl.news.api.LoggingReadingScroll;
-import com.ucl.news.api.RegistrationHttpPostTask;
 import com.ucl.news.api.StoreScrollBehaviorAsync;
 import com.ucl.news.api.StoreScrollBehaviorAsync.AsyncResponse;
 import com.ucl.news.articles.ArticleWebView;
 import com.ucl.news.articles.ArticleWebView.OnBottomReachedListener;
 import com.ucl.news.dao.ArticleMetaDataDAO;
-import com.ucl.news.logging.LoggedData;
-import com.ucl.news.reader.News;
 import com.ucl.news.reader.RSSItems;
-import com.ucl.news.reader.RetrieveFeedTask;
 import com.ucl.news.utils.AutoLogin;
 import com.ucl.newsreader.R;
 
