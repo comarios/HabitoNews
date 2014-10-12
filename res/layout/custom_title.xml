@@ -1,0 +1,24 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title"
+    android:layout_width="fill_parent"
+    android:layout_height="35dip"
+    android:paddingLeft="2dip">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/habitoLogo"
+        android:scaleType="fitStart"
+        android:src="@drawable/logo_small" />
+    
+      <ImageView
+        android:id="@+id/logoSub"
+        android:src="@drawable/habitonews_logo"
+        android:scaleType="fitStart"
+        android:contentDescription="@string/habitoLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

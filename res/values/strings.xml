@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Habito News</string>
+    <string name="mainActivity_name">Habito: A more personalised news</string>
+    <string name="habitoLogo">Habito</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_settings">Settings</string>
+    <string name="action_sync">Sync</string>
+    <string name="action_logout">Log Out</string>
+    <string name="headerTitle">Adaptive News Framework</string>
+    <string name="mainActivity_title">Habito News</string>
+    <string name="logo_description">Habito News Logo</string>
+    <string name="app_subText">Knows your preferences, helps you read news more easily</string>
+    <string name="dataProtectionNumber">Data Protection Number:#####</string>
+    <string name="copyright">UCL Research - 2013</string>
+
+    <!-- login.xml Strings -->
+    <string name="login_emailAddress">Email Address</string>
+    <string name="login_password">Password</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnRegister">Sign up</string>
+    <string name="login_txt">Sign in for even more personalised news</string>
+    <string name="signIn">Sign in to habito</string>
+    <string name="signUp">Sign up</string>
+    
+    <!-- register.xml Strings -->
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="gender">Gender</string>
+    <string name="dob">Date of Birth</string>
+    <string name="email">Email Address</string>
+    <string name="password">Password</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="intro">Create a Habito Account</string>
+    <string name="introSub">A Habito Account lets you access more personalised news.\nYou can create an account by filling the registration form below. Habito will treat all your personal information as private and confidential and any data collected will only be used for research purposes.</string>
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+</resources>

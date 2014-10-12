@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/dark_black"
+    android:orientation="vertical" >
+
+    <!-- Header aligned to top -->
+
+    <RelativeLayout
+        android:id="@+id/headerArticle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/headerArticleTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/steelblue2"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <!-- Footer aligned to bottom -->
+
+    <RelativeLayout
+        android:id="@+id/footerArticle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grey"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/copyright"
+            android:textColor="#000"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <!-- Content below header and above footer -->
+
+    <RelativeLayout
+        android:id="@+id/articleContent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer"
+        android:layout_below="@id/header" >
+
+        <com.ucl.news.articles.ArticleWebView
+            android:id="@+id/webViewArticleStory"
+            android:layout_marginTop="35dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+    </RelativeLayout>
+
+</RelativeLayout>

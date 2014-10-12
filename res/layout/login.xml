@@ -1,0 +1,133 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/steelblue2"
+    android:orientation="vertical" >
+
+    <!-- Header aligned to top -->
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </RelativeLayout>
+
+    <!-- Footer aligned to bottom -->
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/copyright"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <!-- Content below header and above footer -->
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer"
+        android:layout_below="@id/header" >
+
+        <EditText
+            android:id="@+id/txtUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/txtPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:ems="10"
+            android:hint="@string/login_emailAddress"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/txtPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/txtUsername"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/txtUsername"
+            android:layout_marginBottom="181dp"
+            android:ellipsize="start"
+            android:ems="10"
+            android:hint="@string/login_password"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/txtUsername"
+            android:layout_alignLeft="@+id/txtUsername"
+            android:layout_marginBottom="57dp"
+            android:gravity="center"
+            android:text="@string/login_txt"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/txtPassword"
+            android:layout_alignRight="@+id/txtPassword"
+            android:layout_alignTop="@+id/txtPassword"
+            android:layout_marginTop="59dp"
+            android:onClick="btnSignIn"
+            android:text="@string/signIn"
+            android:textColor="@color/steelblue2"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:width="100dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/button1"
+            android:layout_alignRight="@+id/button1"
+            android:layout_below="@+id/button1"
+            android:layout_marginTop="36dp"
+            android:onClick="btnSignUp"
+            android:text="@string/signUp"
+            android:textColor="@color/steelblue2"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:width="100dp" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView1"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_marginBottom="27dp"
+            android:contentDescription="@string/logo_description"
+            android:gravity="center"
+            android:src="@drawable/habitonews_logo" />
+
+        <ProgressBar
+            android:id="@+id/progressBarLogin"
+            style="@android:style/Widget.ProgressBar.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="false"
+            android:max="100"
+            android:minHeight="50dp"
+            android:minWidth="200dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</RelativeLayout>

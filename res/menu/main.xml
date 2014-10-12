@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_sync"
+        android:icon="@drawable/ic_action_ic_action_sync"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_sync"/>
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_action_ic_menu_exit"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_logout"/>
+
+</menu>

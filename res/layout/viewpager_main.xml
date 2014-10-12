@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+     <TextView
+        android:id="@+id/category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fadingEdge="vertical"
+        android:padding="5dp"
+        android:scrollbars="vertical"
+        android:background="@color/dark_black"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+     <com.ucl.news.adapters.SmartViewPager
+        android:id="@+id/pager"
+        android:layout_width="wrap_content"
+        android:background="@color/dark_black"
+        android:layout_height="160dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/category" >
+    </com.ucl.news.adapters.SmartViewPager>
+    
+    <!--  <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/category" >
+    </android.support.v4.view.ViewPager>-->
+
+</RelativeLayout>
