@@ -57,6 +57,7 @@ import com.ucl.newsreader.R;
 
 public class MainActivity extends Activity implements AsyncResponse {
 
+	// David comment new
 	private ArrayList<News> news;
 	private ProgressBar progress;
 	private RowsAdapter rowsAdapter;
