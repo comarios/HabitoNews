@@ -22,6 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ucl.news.api.LoggingNavigationMetadata;
+import com.ucl.news.api.LoginHttpPostTask;
 import com.ucl.news.dao.NavigationalMetaDataDAO;
 import com.ucl.news.dao.RunningAppsDAO;
 import com.ucl.news.main.MainActivity;
@@ -110,8 +112,14 @@ public class RowsAdapter extends ArrayAdapter<News> {
 							"yyyy-MM-dd HH:mm:ss.SSS");
 					String dateTimeStr = dateformat.format(new Date().getTime());
 
-					appendNavigationalMetaDataLocalFile(constructNavigationalMedaDataObject(
-							title, swipeDirection, position, dateTimeStr));
+					LoggingNavigationMetadata hptNavMetaData = new LoggingNavigationMetadata(
+							getContext(), constructNavigationalMedaDataObject(
+									title, swipeDirection, position,
+									dateTimeStr));
+
+					//Commented coz navigationalMetaData is stored in the server
+//					appendNavigationalMetaDataLocalFile(constructNavigationalMedaDataObject(
+//							title, swipeDirection, position, dateTimeStr));
 				}
 				// if(MAX_ITEMS_DISPLAYED < position){
 				// MAX_ITEMS_DISPLAYED = position;
@@ -148,40 +156,43 @@ public class RowsAdapter extends ArrayAdapter<News> {
 				return nmdDAO;
 			}
 
-			private void appendNavigationalMetaDataLocalFile(
-					NavigationalMetaDataDAO nmdDAO) {
-
-				File navigationalFile = new File(Environment.getExternalStorageDirectory()
-						+ File.separator + "HabitoNews_Study/navigational_data.txt");
-				
-				if (navigationalFile.exists()) {
-					try {
-						BufferedWriter bW;
-
-						bW = new BufferedWriter(new FileWriter(navigationalFile, true));
-
-						String delimeter = ";";
-						String row = nmdDAO.getUserID() + delimeter
-								+ nmdDAO.getUserSession() + delimeter
-								+ nmdDAO.getCategoryName() + delimeter
-								+ nmdDAO.getSwipeDirection() + delimeter
-								+ nmdDAO.getItemPosition() + delimeter
-								+ nmdDAO.getDateTime() + delimeter;
-
-						bW.write(row);
-						bW.newLine();
-						bW.flush();
-
-						bW.close();
-					} catch (Exception e) {
-
-					}
-				} else {
-					// Do something else.
-					System.out.println("navigational file not found");
-				}
-
-			}
+//			private void appendNavigationalMetaDataLocalFile(
+//					NavigationalMetaDataDAO nmdDAO) {
+//
+//				File navigationalFile = new File(Environment
+//						.getExternalStorageDirectory()
+//						+ File.separator
+//						+ "HabitoNews_Study/navigational_data.txt");
+//
+//				if (navigationalFile.exists()) {
+//					try {
+//						BufferedWriter bW;
+//
+//						bW = new BufferedWriter(new FileWriter(
+//								navigationalFile, true));
+//
+//						String delimeter = ";";
+//						String row = nmdDAO.getUserID() + delimeter
+//								+ nmdDAO.getUserSession() + delimeter
+//								+ nmdDAO.getCategoryName() + delimeter
+//								+ nmdDAO.getSwipeDirection() + delimeter
+//								+ nmdDAO.getItemPosition() + delimeter
+//								+ nmdDAO.getDateTime() + delimeter;
+//
+//						bW.write(row);
+//						bW.newLine();
+//						bW.flush();
+//
+//						bW.close();
+//					} catch (Exception e) {
+//
+//					}
+//				} else {
+//					// Do something else.
+//					System.out.println("navigational file not found");
+//				}
+//
+//			}
 
 			protected String onTabChanged(final PagerAdapter adapter,
 					final int oldPosition, final int newPosition) {

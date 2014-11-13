@@ -27,8 +27,7 @@ import android.widget.TextView;
 import com.ucl.news.adapters.ViewPagerAdapter;
 import com.ucl.news.api.ArticleDAO;
 import com.ucl.news.api.LoggingReadingBehavior;
-import com.ucl.news.api.StoreScrollBehaviorAsync;
-import com.ucl.news.api.StoreScrollBehaviorAsync.AsyncResponse;
+import com.ucl.news.api.LoggingReadingScroll;
 import com.ucl.news.articles.ArticleWebView;
 import com.ucl.news.articles.ArticleWebView.OnBottomReachedListener;
 import com.ucl.news.dao.ArticleMetaDataDAO;
@@ -37,12 +36,11 @@ import com.ucl.news.utils.AutoLogin;
 import com.ucl.newsreader.R;
 
 public class ArticleActivity extends Activity implements
-		OnBottomReachedListener, AsyncResponse {
+		OnBottomReachedListener {
 
 	private ArticleWebView webView;
 	private ArticleDAO aDAO;
 	public static ArrayList<ArticleMetaDataDAO> articleMetaData;
-	private StoreScrollBehaviorAsync asyncStoreScroll;
 	private long startReading;
 	private long endReading;
 	public static long articleID;
@@ -52,9 +50,14 @@ public class ArticleActivity extends Activity implements
 	public static final String UPDATE = "com.ucl.news.main.ArticleActivity.action.UPDATE";
 	public static final String MSG_SEND = "com.ucl.news.main.ArticleActivity.MSG_SEND";
 
+	public void setArticleMetaDataDAO(ArticleMetaDataDAO amdDAO) {
+		articleMetaData.add(amdDAO);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		final boolean customTitleSupported = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.articles);
 
@@ -78,6 +81,7 @@ public class ArticleActivity extends Activity implements
 		// System.out.println("M LINK: " + mLinkURL);
 		new ParseHTML().execute(mLinkURL);
 
+		Log.e("RESULT READING Scroll Enter Activity", "test");
 		aDAO = new ArticleDAO();
 		articleMetaData = new ArrayList<ArticleMetaDataDAO>();
 
@@ -119,7 +123,7 @@ public class ArticleActivity extends Activity implements
 	public void onBackPressed() {
 
 		super.onBackPressed();
-		
+
 		endReading = new Date().getTime();
 		aDAO.setEndTimestamp(endReading);
 		aDAO.setReadingDuration(TimeUnit.MILLISECONDS.toSeconds(endReading
@@ -128,63 +132,65 @@ public class ArticleActivity extends Activity implements
 		aDAO.setIsScrollReachedBottom(isScrollReachedBottom);
 		aDAO.setIsScrollUsed(isScrollUsed);
 
-		LoggingReadingBehavior logReadinghpt = new LoggingReadingBehavior(
-				getApplicationContext(), this, aDAO);
-
-		File scrollFile = new File(Environment.getExternalStorageDirectory()
-				+ File.separator + "HabitoNews_Study/scroll_position.txt");
+		//Store ReadingBehaviour (e.g. reading duration, article's words, etc.)
+		LoggingReadingBehavior loggingReadingBehavior = new LoggingReadingBehavior(getApplicationContext(), this, aDAO);
 		
-		if (scrollFile.exists()) {
-			try {
-				BufferedWriter bW;
+		//Store Reading Scroll (e.g. precise scroll positions)
+		LoggingReadingScroll loggingReadingScroll = new LoggingReadingScroll(getApplicationContext(), this, articleMetaData);
 
-				bW = new BufferedWriter(new FileWriter(scrollFile, true));
-				for (int i = 0; i < articleMetaData.size(); i++) {
-
-					String delimeter = ";";
-					String row = articleMetaData.get(i).getUserID() + delimeter
-							+ articleMetaData.get(i).getUserSession()
-							+ delimeter + articleMetaData.get(i).getArticleID()
-							+ delimeter
-							+ articleMetaData.get(i).getScrollRange()
-							+ delimeter
-							+ articleMetaData.get(i).getScrollExtent()
-							+ delimeter
-							+ articleMetaData.get(i).getScrollOffset()
-							+ delimeter + articleMetaData.get(i).getDateTime()
-							+ delimeter;
-
-					bW.write(row);
-					bW.newLine();
-					bW.flush();
-				}
-
-				bW.close();
-			} catch (Exception e) {
-
-			}
-		}else {
-			// Do something else.
-			System.out.println("scroll_position file not found");
-		}
 		MainActivity.CallingFromArticleActivity = true;
-//		Intent i = new Intent(ArticleActivity.this, MainActivity.class);
-//		i.putExtra("ref", "ArticleCaller");
-//		startActivity(i);
-	}
 
-	@Override
-	public void processFinish(String res) {
-		// TODO Auto-generated method stub
+		/*
+		 * Store Reading Scroll in the file. Commented coz it's stored in the
+		 * server.
+		 */
 
-		Log.e("HERE CALL", "test");
-		// System.out.println("result async: " + res);
+		// for (int i = 0; i < articleMetaData.size(); i++) {
+		// LoggingReadingScroll logReadingScrollhpt = new LoggingReadingScroll(
+		// getApplicationContext(), this, articleMetaData.get(i));
+		// }
 
+		// File scrollFile = new File(Environment.getExternalStorageDirectory()
+		// + File.separator + "HabitoNews_Study/scroll_position.txt");
+		//
+		// if (scrollFile.exists()) {
+		// try {
+		// BufferedWriter bW;
+		//
+		// bW = new BufferedWriter(new FileWriter(scrollFile, true));
+		// for (int i = 0; i < articleMetaData.size(); i++) {
+		//
+		// String delimeter = ";";
+		// String row = articleMetaData.get(i).getUserID() + delimeter
+		// + articleMetaData.get(i).getUserSession()
+		// + delimeter + articleMetaData.get(i).getArticleID()
+		// + delimeter
+		// + articleMetaData.get(i).getScrollRange()
+		// + delimeter
+		// + articleMetaData.get(i).getScrollExtent()
+		// + delimeter
+		// + articleMetaData.get(i).getScrollOffset()
+		// + delimeter + articleMetaData.get(i).getDateTime()
+		// + delimeter;
+		//
+		// bW.write(row);
+		// bW.newLine();
+		// bW.flush();
+		// }
+		//
+		// bW.close();
+		// } catch (Exception e) {
+		//
+		// }
+		// } else {
+		// // Do something else.
+		// System.out.println("scroll_position file not found");
+		// }
 	}
 
 	public void storeReadingScroll(String result) {
 
-		// Log.e("RESULT READING Scroll", result);
+		Log.e("RESULT READING Scroll", result);
 	}
 
 	public void storeReadingBehavior(String result) {
@@ -238,7 +244,7 @@ public class ArticleActivity extends Activity implements
 
 			String htmlcode = "";
 
-			 System.out.println("hereHTML: " + htmlcode);
+			System.out.println("hereHTML: " + htmlcode);
 			try {
 				doc = Jsoup.connect(params[0]).get();
 
@@ -295,7 +301,7 @@ public class ArticleActivity extends Activity implements
 				htmlcode = doc.html();
 				// System.out.println(doc);
 
-				 System.out.println("hereDOC: " + doc);
+				System.out.println("hereDOC: " + doc);
 
 				numberOfWordsInArticle = countWords(htmlcode);
 
@@ -313,10 +319,21 @@ public class ArticleActivity extends Activity implements
 		@Override
 		protected void onPostExecute(String result) {
 			webView = (ArticleWebView) findViewById(R.id.webViewArticleStory);
+			// webView = new ArticleWebView(getApplicationContext(),
+			// ArticleActivity.this);
+			// RelativeLayout rl = new RelativeLayout(getApplicationContext());
+			// RelativeLayout.LayoutParams rlp = new
+			// RelativeLayout.LayoutParams(
+			// RelativeLayout.LayoutParams.FILL_PARENT,
+			// RelativeLayout.LayoutParams.FILL_PARENT);
+			// webView.setLayoutParams(rlp);
+
 			webView.getSettings().setJavaScriptEnabled(true);
 			webView.setWebViewClient(new MyWebViewClient());
 			webView.loadData(result, "text/html", null);
 			webView.setOnBottomReachedListener(ArticleActivity.this, 300);
+			// rl.addView(webView);
+			// setContentView(rl, rlp);
 		}
 	}
 

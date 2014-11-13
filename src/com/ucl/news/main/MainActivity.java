@@ -48,7 +48,6 @@ import com.ucl.news.reader.News;
 import com.ucl.news.reader.RetrieveFeedTask;
 import com.ucl.news.reader.RetrieveFeedTask.AsyncResponse;
 import com.ucl.news.services.NewsAppsService;
-import com.ucl.news.services.RunningAppsService;
 import com.ucl.news.utils.AutoLogin;
 import com.ucl.news.utils.Dialogs;
 import com.ucl.news.utils.GPSLocation;
@@ -70,10 +69,9 @@ public class MainActivity extends Activity implements AsyncResponse {
 	public static Session userSession = new Session();
 	public static ArrayList<NavigationDAO> navigationDAO = new ArrayList<NavigationDAO>();
 	public static boolean activitySwitchFlag = false;
-	public static File scrollPositionFile;
-	public static File runningAppsFile;
-	public static File navigationalDataFile;
-	private Intent runningAppsService;
+	// public static File scrollPositionFile;
+	// public static File runningAppsFile;
+	// public static File navigationalDataFile;
 	private Intent newsAppsService;
 	public static boolean CallingFromArticleActivity = false;
 
@@ -86,6 +84,11 @@ public class MainActivity extends Activity implements AsyncResponse {
 		setContentView(R.layout.activity_main);
 
 		if (network.haveNetworkConnection()) {
+
+			// Retrieve user class. Implement this for adaptation
+			/**
+			 * IF user is A then IF user is B then IF user is C then
+			 */
 
 			progress = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -110,83 +113,48 @@ public class MainActivity extends Activity implements AsyncResponse {
 
 			this.newsAppsService = new Intent(NewsAppsService.class.getName());
 			this.startService(newsAppsService);
-			
-			/*
-			 * Create dir for storing scroll position
-			 */
-			if (!Environment.getExternalStorageState().equals(
-					Environment.MEDIA_MOUNTED)) {
-				// handle case of no SDCARD present
-			} else {
-				String dir = Environment.getExternalStorageDirectory()
-						+ File.separator + "HabitoNews_Study";
-				// create folder
-				File folder = new File(dir); // folder name
-				if (!folder.exists()) {
-					folder.mkdir();
-				}
-				// create ScrollPosition file
-				scrollPositionFile = new File(dir, "scroll_position.txt");
-				try {
-					scrollPositionFile.createNewFile();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 
-				// create RunningAppsFile file
-				runningAppsFile = new File(dir, "news_runningApps.txt");
-				try {
-					runningAppsFile.createNewFile();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				// create Navigational Data file
-				navigationalDataFile = new File(dir, "navigational_data.txt");
-				try {
-					navigationalDataFile.createNewFile();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-			
-			
-			
-			//this.runningAppsService = new Intent(this.getApplicationContext(),
-			//		RunningAppsService.class);
-
-			//this.getApplicationContext().startService(this.runningAppsService);
-
-			// }
-
-			// navigationDAO = new ArrayList<NavigationDAO>();
-
-			// // Get the UserID either from Login or Registration Activity
-			// Intent i = getIntent();
-			// // System.out.println("Intent:" + i);
-			//
-			// if (!i.hasExtra("ref")) {
-			// System.out.println("App killed");
-			// } else if (i != null
-			// && (i.getStringExtra("ref").equals("LoginActivity")
-			// || i.getStringExtra("ref").equals("WelcomeScreen") || i
-			// .getStringExtra("ref").equals(
-			// "RegistrationActivity"))) {
-			//
-			// // Initialize the NavigationDAO
-			// navigationDAO = new ArrayList<NavigationDAO>();
-			//
-			//
-			// } else if (i != null
-			// && (i.getStringExtra("ref").equals("ArticleActivity"))) {
-			// // Do nothing
-			// System.out.println("From articles");
+			// /* Commented coz everything is stored in the server
+			// * Create dir for storing scroll position
+			// */
+			// if (!Environment.getExternalStorageState().equals(
+			// Environment.MEDIA_MOUNTED)) {
+			// // handle case of no SDCARD present
 			// } else {
-			// System.out.println("From outside");
+			// String dir = Environment.getExternalStorageDirectory()
+			// + File.separator + "HabitoNews_Study";
+			// // create folder
+			// File folder = new File(dir); // folder name
+			// if (!folder.exists()) {
+			// folder.mkdir();
+			// }
+			// // create ScrollPosition file
+			// scrollPositionFile = new File(dir, "scroll_position.txt");
+			// try {
+			// scrollPositionFile.createNewFile();
+			// } catch (IOException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
+			//
+			// // create RunningAppsFile file
+			// runningAppsFile = new File(dir, "news_runningApps.txt");
+			// try {
+			// runningAppsFile.createNewFile();
+			// } catch (IOException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
+			//
+			// // create Navigational Data file
+			// navigationalDataFile = new File(dir, "navigational_data.txt");
+			// try {
+			// navigationalDataFile.createNewFile();
+			// } catch (IOException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
+			//
 			// }
 
 		} else {
@@ -197,8 +165,6 @@ public class MainActivity extends Activity implements AsyncResponse {
 	}
 
 	public void fetchRSS() {
-
-		System.out.println("fetch HERE");
 		progress.setVisibility(View.VISIBLE);
 		asyncTask = new RetrieveFeedTask(getApplicationContext());
 		asyncTask.execute("http://feeds.bbci.co.uk/news/rss.xml",
@@ -213,15 +179,10 @@ public class MainActivity extends Activity implements AsyncResponse {
 				"http://feeds.bbci.co.uk/news/technology/rss.xml",
 				"http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml");
 		asyncTask.delegate = MainActivity.this;
-
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		// getMenuInflater().inflate(R.menu.main, menu);
-		// return true;
-
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
 
@@ -230,7 +191,6 @@ public class MainActivity extends Activity implements AsyncResponse {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Take appropriate action for each action item click
 		switch (item.getItemId()) {
 		case R.id.action_sync:
 			rowsAdapter.clear();
@@ -248,9 +208,7 @@ public class MainActivity extends Activity implements AsyncResponse {
 	public void processFinish(ArrayList<List<RSSItem>> outputFeed) {
 		// TODO Auto-generated method stub
 
-		Log.e("HERE CALL", "test");
-
-		// Treat the initial stage
+		// Initial stage
 		if (news.size() != categories.length) {
 			for (int i = 0; i < outputFeed.size(); i++) {
 				news.add(new News(categories[i], outputFeed.get(i)));
@@ -260,46 +218,15 @@ public class MainActivity extends Activity implements AsyncResponse {
 				rowsAdapter.notifyDataSetChanged();
 			}
 		} else {
-
 			for (int j = 0; j < news.size(); j++) {
-
 				news.get(j).setContent(outputFeed.get(j));
-
 			}
 		}
 
 		progress.setVisibility(View.INVISIBLE);
-
 	}
 
-	// public void startLogging() {
-	//
-	// /** Start InteractionService */
-	// // IntentFilter movementFilter;
-	// // movementFilter = new
-	// // IntentFilter(InteractionService.MOVEMENT_UPDATE);
-	// // serviceReceiver = new ServiceReceiver();
-	// // registerReceiver(serviceReceiver, movementFilter);
-	// System.out.println("MAIN");
-	//
-	// this.logger = new Intent(this.getApplicationContext(), Logger.class);
-	//
-	// this.getApplicationContext().startService(this.logger);
-	// // startService(new Intent(this, InteractionService.class));
-	// }
-	//
-	// // Stop the service
-	// public void stopLogging() {
-	// this.getApplicationContext().stopService(this.logger);
-	// // stopService(new Intent(this, InteractionService.class));
-	// }
-
 	public void logout() {
-		// Utils.saveToFileLoggedIN(this, getFilesDir(), Utils.IS_LOGGED_IN_NO);
-		// userSession.setUserID(null);
-		// userSession.setSession(null);
-		// super.finish();
-		// this.finish();
 		String updateCredentials;
 		updateCredentials = "NO"
 				+ ";"
@@ -310,9 +237,11 @@ public class MainActivity extends Activity implements AsyncResponse {
 						.getSettingsFile(getApplicationContext())) + ";";
 		AutoLogin.saveSettingsFile(getApplicationContext(), updateCredentials);
 
-		System.out.println("logout: " + AutoLogin.getSettingsFile(getApplicationContext()));
+		System.out.println("logout: "
+				+ AutoLogin.getSettingsFile(getApplicationContext()));
 		Intent i = new Intent(MainActivity.this, LoginActivity.class);
-		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); 
+		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+				| Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		startActivity(i);
 		super.finish();
 		this.finish();
@@ -321,54 +250,22 @@ public class MainActivity extends Activity implements AsyncResponse {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		System.out.println("destroyed called");
-		//this.stopService(newsAppsService);
-		// super.finish();
-		//this.getApplicationContext().stopService(this.runningAppsService);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-
 		CallingFromArticleActivity = false;
-
-		// Intent callee = getIntent();
-		//
-		// System.out.println("navSize: " + navigationDAO.size());
-		// System.out.println("callee ref: " + callee.getStringExtra("ref"));
-		//
-		// if (callee != null && callee.hasExtra("ref")) {
-		// System.out.println("grapseta: " + callee.getStringExtra("ref"));
-		//
-		// if (!callee.getStringExtra("ref").equals("ArticleCaller")) {
-		// if (navigationDAO.size() != 0) {
-		//
-		// System.out.println("is not empty");
-		// for (int i = 0; i < navigationDAO.size(); i++) {
-		//
-		// System.out.println("orderID: "
-		// + navigationDAO.get(i).getOrderID());
-		// LoggingNavigationBehavior logNavigationhpt = new
-		// LoggingNavigationBehavior(
-		// getApplicationContext(), this, navigationDAO.get(i));
-		// }
-		// } else {
-		// System.out.println("No navigation");
-		// }
-		// }
-		// }
-
 	}
 
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		  Log.d("CDA", "onBackPressed Called");
-		  Intent setIntent = new Intent(Intent.ACTION_MAIN);
-		  setIntent.addCategory(Intent.CATEGORY_HOME);
-		  setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		  startActivity(setIntent);
+		Log.d("CDA", "onBackPressed Called");
+		Intent setIntent = new Intent(Intent.ACTION_MAIN);
+		setIntent.addCategory(Intent.CATEGORY_HOME);
+		setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(setIntent);
 	}
 
 	@Override

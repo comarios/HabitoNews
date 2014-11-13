@@ -1,9 +1,11 @@
 package com.ucl.news.dao;
 
+import java.io.Serializable;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ArticleMetaDataDAO implements Parcelable {
+public class ArticleMetaDataDAO implements Parcelable, Serializable {
 
 	private long userID;
 	private String userSession;

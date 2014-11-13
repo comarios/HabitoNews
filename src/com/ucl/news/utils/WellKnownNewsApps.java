@@ -22,7 +22,7 @@ public class WellKnownNewsApps {
 	
 	private void init(){
 		
-		// Fill in ArrayList with wellnewsApps.add(known news apps
+		// Fill in ArrayList with well-known news apps
 		newsApps.add("com.ucl.newsreader");
 		newsApps.add("bbc.mobile.news.uk");
 		newsApps.add("com.bskyb.skynews.android");

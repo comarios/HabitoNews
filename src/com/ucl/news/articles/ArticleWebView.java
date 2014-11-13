@@ -135,6 +135,7 @@ public class ArticleWebView extends WebView {
 			aArticleMetaDataDAO.setDateTime(dateTimeStr);
 			
 			ArticleActivity.articleMetaData.add(aArticleMetaDataDAO);
+			//articleActivity.setArticleMetaDataDAO(aArticleMetaDataDAO);
 //			System.out.println("here time: " + dateTimeStr);
 //			System.out.println("computeVerticalScrollRange(): "
 //					+ computeVerticalScrollRange());

@@ -181,6 +181,9 @@ public class ViewPagerAdapter extends PagerAdapter {
 				RSSItems rss = new RSSItems(rssItems.get(cPos).getTitle(),
 						rssItems.get(cPos).getLink().toString());
 				intent.putExtra(EXTRA_MESSAGE, rss);
+				
+				//intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+//				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				context.startActivity(intent);
 			}
 

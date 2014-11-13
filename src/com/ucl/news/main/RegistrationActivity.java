@@ -212,24 +212,28 @@ Log.e("RES1", result);
 			if (fname.equals("")) {
 				invalid = true;
 				mFname.setBackgroundResource(R.drawable.error);
+				progressRegister.setVisibility(View.GONE);
 				// Toast.makeText(getApplicationContext(),
 				// "Enter your Firstname",
 				// Toast.LENGTH_SHORT).show();
 			} else if (lname.equals("")) {
 				invalid = true;
 				mLname.setBackgroundResource(R.drawable.error);
+				progressRegister.setVisibility(View.GONE);
 				// Toast.makeText(getApplicationContext(),
 				// "Please enter your Lastname", Toast.LENGTH_SHORT)
 				// .show();
 			} else if (pass.equals("")) {
 				invalid = true;
 				mPassword.setBackgroundResource(R.drawable.error);
+				progressRegister.setVisibility(View.GONE);
 				// Toast.makeText(getApplicationContext(),
 				// "Please enter your Password", Toast.LENGTH_SHORT)
 				// .show();
 			} else if (email.equals("")) {
 				invalid = true;
 				mEmail.setBackgroundResource(R.drawable.error);
+				progressRegister.setVisibility(View.GONE);
 				// Toast.makeText(getApplicationContext(),
 				// "Please enter your Email ID", Toast.LENGTH_SHORT)
 				// .show();
