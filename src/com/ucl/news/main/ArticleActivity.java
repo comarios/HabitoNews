@@ -85,14 +85,17 @@ public class ArticleActivity extends Activity implements
 		aDAO = new ArticleDAO();
 		articleMetaData = new ArrayList<ArticleMetaDataDAO>();
 
+		articleID = extractArticleID(rss.getLink());
+		
 		aDAO.setUserID(AutoLogin.getUserID(AutoLogin
 				.getSettingsFile(getApplicationContext())));
 		aDAO.setUserSession(AutoLogin.getUserSession(AutoLogin
 				.getSettingsFile(getApplicationContext())));
+		aDAO.setArticleID(articleID);
 		aDAO.setArticleName(rss.getTitle());
-		aDAO.setArticleURL(Long.toString(extractArticleID(rss.getLink())));
-
-		articleID = extractArticleID(rss.getLink());
+		aDAO.setArticleURL(rss.getLink());
+		
+		
 		startReading = new Date().getTime();
 		aDAO.setStartTimestamp(startReading);
 	}

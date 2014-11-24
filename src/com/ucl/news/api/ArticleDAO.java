@@ -6,6 +6,7 @@ public class ArticleDAO implements Parcelable {
 
 	private long userID;
 	private String userSession;
+	private long articleID;
 	private String articleName;
 	private String articleURL;
 	private double readingDuration;
@@ -20,13 +21,14 @@ public class ArticleDAO implements Parcelable {
 	}
 
 	public ArticleDAO(long _userID, String _userSession, String _articleName,
-			String _articleURL, long _readingDuration, long _startTimestamp,
+			long _articleID, String _articleURL, long _readingDuration, long _startTimestamp,
 			long _endTimestamp, Boolean _isScroolUsed,
 			Boolean _isScrollReachedBottom, long _scrollDuration,
 			int _numberOfWordsInArticle) {
 
 		userID = _userID;
 		userSession = _userSession;
+		articleID = _articleID;
 		articleName = _articleName;
 		articleURL = _articleURL;
 		readingDuration = _readingDuration;
@@ -43,6 +45,7 @@ public class ArticleDAO implements Parcelable {
 
 		userID = pc.readLong();
 		userSession = pc.readString();
+		articleID = pc.readLong();
 		articleName = pc.readString();
 		articleURL = pc.readString();
 		readingDuration = pc.readLong();
@@ -77,6 +80,7 @@ public class ArticleDAO implements Parcelable {
 
 		pc.writeLong(userID);
 		pc.writeString(userSession);
+		pc.writeLong(articleID);
 		pc.writeString(articleName);
 		pc.writeString(articleURL);
 		pc.writeDouble(readingDuration);
@@ -106,6 +110,15 @@ public class ArticleDAO implements Parcelable {
 
 	public void setUserSession(String userSession) {
 		this.userSession = userSession;
+	}
+
+	
+	public long getArticleID() {
+		return articleID;
+	}
+
+	public void setArticleID(long articleID) {
+		this.articleID = articleID;
 	}
 
 	public String getArticleName() {

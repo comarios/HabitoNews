@@ -136,6 +136,13 @@ public class LoggingReadingBehavior {
 				e.printStackTrace();
 			}
 			try {
+				jsonObject.accumulate("articleID",
+						readingBehavior.getArticleID() + "");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
 				jsonObject.accumulate("articleName",
 						readingBehavior.getArticleName() + "");
 			} catch (JSONException e) {
